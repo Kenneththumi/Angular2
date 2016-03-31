@@ -1,0 +1,76 @@
+<!-- 
+*Cytonn Tech.
+*@author Kenneth Mwangi <kthumi@cytonn.com>
+*
+*
+-->
+<!DOCTYPE html>
+<html >
+
+<head>
+    <meta charset="utf-8";>
+    <title>AngularJS: UI-Router Quick Start</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+     <!-- Angular -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+</head>
+
+<body class="container" ng-app="myapp">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Towns</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li ><a ui-sref="page1">Home</a></li>
+        <li><a ui-sref="page2">Africa</a></li>
+        <li><a ui-sref="page3">America</a></li>
+        <li><a href="#">Europe</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="row">
+    <div class="span12">
+      <div class="well" ui-view></div>        
+    </div>
+  </div>         
+ 
+  <!-- UI-Router -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
+  
+  <!-- App Script -->
+  <script>
+    var myapp = angular.module('myapp', ["ui.router"]);
+    myapp.config(function($stateProvider, $urlRouterProvider){
+      
+      // For any unmatched url, send to /route1
+      $urlRouterProvider.otherwise("/page1");
+      //load the pages according to page selected
+      $stateProvider
+        .state('page1', {
+            url: "/page1",
+            templateUrl: "page1.html"
+        })
+          .state('list', {
+              url: "/page1/list",
+              templateUrl: "list.html",
+              controller: function($scope){
+                $scope.items = ["Nairobi", "Kisumu", "Mabatha", "Nakuru","Eldoret"];
+              }
+          })
+          
+        .state('page2', {
+            url: "/page2",
+            templateUrl: "page2.html"
+        })
+       .state('page3', {
+            url: "/page3",
+            templateUrl: "page3.html"
+        })
+    });
+  </script>
+
+</body>
+
+</html>
